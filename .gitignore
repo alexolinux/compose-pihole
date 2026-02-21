@@ -1,0 +1,63 @@
+# ======================
+# Docker
+# ======================
+
+# Arquivos gerados pelo Docker
+*.log
+docker-compose.override.yml
+
+# Diretórios de volumes (ajuste conforme seu projeto)
+data/
+volumes/
+docker-data/
+.docker/
+
+# Cache e arquivos temporários
+tmp/
+temp/
+
+# ======================
+# Variáveis de ambiente
+# ======================
+
+.env
+.env.*
+!.env.example
+
+# ======================
+# Build e dependências
+# ======================
+
+# Node
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Java
+target/
+*.class
+
+# ======================
+# IDEs e SO
+# ======================
+
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# ======================
+# Docker Desktop / WSL
+# ======================
+
+docker-desktop-data/
+
