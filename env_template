@@ -4,7 +4,8 @@ DOCKER_NETWORK="pihole"
 DST_HOST="<secondary_pihole_host>"
 
 # System Vars
-TZ="<Run `timedatectl list-timezones` to select the TZ TimeZone>"
+#Use `timedatectl list-timezones` to replace TZ value
+TZ="UTC"
 HOST_UID="$UID"
 HOST_GID="$GID"
 PIHOLE_PASSWORD="AwesomePasswordHere"
@@ -26,8 +27,7 @@ DNS_REPLICAS="http://[IP_ADDRESS]:${PIHOLE_PORT}"
 DNS_TCP_PORT=5353
 DNS_UDP_PORT=5353
 
-# Nebula Service
-NEBULA_PORT=<nebula_sync_port>
+# Nebula Service ("all false" in the secondary pihole (slave))
 FULL_SYNC="true"        #true or false
 RUN_GRAVITY="false"     #true or false
 
