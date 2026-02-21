@@ -7,7 +7,6 @@ DST_HOST="<secondary_pihole_host>" #Only used for optional script sync
 TZ="UTC"
 HOST_UID="$UID"
 HOST_GID="$GID"
-PIHOLE_PASSWORD="AwesomePasswordHere"
 
 # Docker Image Versions
 PIHOLE_VERSION="2025.11.1"
@@ -17,6 +16,7 @@ DUCKDNS_VERSION="latest"
 PROXYMANAGER_VERSION="latest"
 
 # Pihole Service
+PIHOLE_PASSWORD="AwesomePasswordHere"
 PIHOLE_PORT=<pihole_port>
 PIHOLE_HTTPS_PORT=9443
 
