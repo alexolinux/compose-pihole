@@ -30,7 +30,7 @@ This project provides docker-compose files to deploy a network-wide ad blocker (
 
 ## What is Unbound?
 
-[Unbound](https://nlnetlabs.nl/projects/unbound/about/) is a validating, recursive, and caching DNS resolver. It enhances privacy and security by resolving DNS queries directly without relying on third-party DNS providers.
+[Unbound](https://unbound.docs.nlnetlabs.nl/en/latest/) is a validating, recursive, and caching DNS resolver. It enhances privacy and security by resolving DNS queries directly without relying on third-party DNS providers.
 
 ## What is Nebula Sync?
 
