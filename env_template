@@ -1,0 +1,42 @@
+# Custom Configuration
+CONFIG="${HOME}/.config/microservices"
+DOCKER_NETWORK="pihole"
+DST_HOST="<secondary_pihole_host>"
+
+# System Vars
+TZ="<Run `timedatectl list-timezones` to select the TZ TimeZone>"
+HOST_UID="$UID"
+HOST_GID="$GID"
+PIHOLE_PASSWORD="AwesomePasswordHere"
+
+# Docker Image Versions
+PIHOLE_VERSION="2025.11.1"
+UNBOUND_VERSION="latest"
+NEBULA_VERSION="latest"
+DUCKDNS_VERSION="latest"
+PROXYMANAGER_VERSION="latest"
+
+# Pihole Service
+PIHOLE_PORT=<pihole_port>
+PIHOLE_HTTPS_PORT=9443
+
+# Unbound Service
+DNS_PRIMARY="http://[IP_ADDRESS]:${PIHOLE_PORT}"
+DNS_REPLICAS="http://[IP_ADDRESS]:${PIHOLE_PORT}"
+DNS_TCP_PORT=5353
+DNS_UDP_PORT=5353
+
+# Nebula Service
+NEBULA_PORT=<nebula_sync_port>
+FULL_SYNC="true"        #true or false
+RUN_GRAVITY="false"     #true or false
+
+# Proxy Manager Service
+PROXYMANAGER_PORT=<proxymanager_port>
+PROXYMANAGER_HTTP_PORT=<proxymanager_http_port>
+PROXYMANAGER_HTTPS_PORT=<proxymanager_https_port>
+
+# DuckDNS Service
+DUCKDNS_PORT=<duckdns_port>
+DUCKDNS_DOMAINS="<duckdns_domains>"
+DUCKDNS_TOKEN="<duckdns_token>"
