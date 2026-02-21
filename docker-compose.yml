@@ -1,0 +1,87 @@
+services:
+  #https://github.com/pi-hole/docker-pi-hole
+  pihole:
+    image: pihole/pihole:${PIHOLE_VERSION:-latest}
+    container_name: pihole
+    hostname: pihole
+    restart: unless-stopped
+    networks:
+      - "${DOCKER_NETWORK}"
+    depends_on:
+      - unbound
+    ports:
+      - "53:53/tcp"
+      - "53:53/udp"
+      - "${PIHOLE_PORT}:80/tcp"
+      # Default HTTPs Port. FTL will generate a self-signed certificate
+      - "${PIHOLE_HTTPS_PORT}:443/tcp"
+      # Uncomment the line below if you are using Pi-hole as your DHCP server
+      #- "67:67/udp"
+      # Uncomment the line below if you are using Pi-hole as your NTP server
+      #- "123:123/udp"
+    environment:
+      # https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+      TZ: "${TZ}"
+      # Set a password to access the pihole web interface.
+      FTLCONF_webserver_api_password: "${PIHOLE_PASSWORD}"
+      # If using Docker's default `bridge` network setting the dns listening mode should be set to 'all'
+      FTLCONF_dns_listeningMode: "all"
+      # Additional environment variables can be found here:
+      # Configure Pi-hole to use Unbound Service from another Container Service
+      FTLCONF_dns_upstreams: "unbound#53"
+      # These 3 vars are deprecated (replaced by FTLCONF_dns_upstreams)
+      ##PIHOLE_DNS_: ${UNBOUND_IP:-unbound} # Default to 'unbound' service name
+      ##PIHOLE_DNS_1: 127.0.0.1
+      ##PIHOLE_DNS_2:
+    volumes:
+      # For persisting Pi-hole's databases and common configuration file >>: - './etc-pihole:/etc/pihole'
+      - "${CONFIG}/pihole:/etc/pihole"
+    cap_add:
+      - NET_ADMIN
+      # Required if you are using Pi-hole as your NTP client to be able to set the host's system time
+      - SYS_TIME
+      # Optional, if Pi-hole should get some more processing time
+      - SYS_NICE
+  #https://hub.docker.com/r/mvance/unbound
+  unbound:
+    image: mvance/unbound-rpi:${UNBOUND_VERSION:-latest}
+    container_name: unbound
+    hostname: unbound
+    restart: unless-stopped
+    networks:
+      - "${DOCKER_NETWORK}"
+    ports:
+      - "${DNS_TCP_PORT}:53/tcp"
+      - "${DNS_UDP_PORT}:53/udp"
+    #volumes:
+    # For persisting Unbound's configuration file >>: - './etc-unbound:/etc/unbound'
+    #- "${CONFIG}/unbound:/etc/unbound"
+    cap_add:
+      - NET_ADMIN
+  #https://github.com/lovelaze/nebula-sync
+  nebula-sync:
+    image: ghcr.io/lovelaze/nebula-sync:${NEBULA_VERSION:-latest}
+    container_name: nebula-sync
+    hostname: nebula
+    restart: unless-stopped
+    networks:
+      - "${DOCKER_NETWORK}"
+    environment:
+      - TZ=${TZ}
+      - PUID=${HOST_UID}
+      - PGID=${HOST_GID}
+      - PRIMARY=${DNS_PRIMARY}|${PIHOLE_PASSWORD}
+      - REPLICAS=${DNS_REPLICAS}|${PIHOLE_PASSWORD}
+      - FULL_SYNC=${FULL_SYNC}
+      - RUN_GRAVITY=${RUN_GRAVITY}
+      - CLIENT_SKIP_TLS_VERIFICATION=true
+      - CRON=*/15 * * * *
+    volumes:
+      - "${CONFIG}/nebula-sync:/data"
+
+networks:
+  "${DOCKER_NETWORK}":
+    name: "${DOCKER_NETWORK}"
+    driver: bridge
+
+volumes: {}
