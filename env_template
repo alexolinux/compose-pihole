@@ -1,7 +1,6 @@
 # Custom Configuration
 CONFIG="${HOME}/.config/microservices"
-DOCKER_NETWORK="pihole"
-DST_HOST="<secondary_pihole_host>"
+DST_HOST="<secondary_pihole_host>" #Only used for optional script sync
 
 # System Vars
 #Use `timedatectl list-timezones` to replace TZ value

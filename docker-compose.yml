@@ -6,7 +6,7 @@ services:
     hostname: pihole
     restart: unless-stopped
     networks:
-      - "${DOCKER_NETWORK}"
+      - pihole
     depends_on:
       - unbound
     ports:
@@ -49,7 +49,7 @@ services:
     hostname: unbound
     restart: unless-stopped
     networks:
-      - "${DOCKER_NETWORK}"
+      - pihole
     ports:
       - "${DNS_TCP_PORT}:53/tcp"
       - "${DNS_UDP_PORT}:53/udp"
@@ -65,7 +65,7 @@ services:
     hostname: nebula
     restart: unless-stopped
     networks:
-      - "${DOCKER_NETWORK}"
+      - pihole
     environment:
       - TZ=${TZ}
       - PUID=${HOST_UID}
@@ -80,8 +80,8 @@ services:
       - "${CONFIG}/nebula-sync:/data"
 
 networks:
-  "${DOCKER_NETWORK}":
-    name: "${DOCKER_NETWORK}"
+  pihole:
+    name: pihole
     driver: bridge
 
 volumes: {}
