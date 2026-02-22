@@ -70,7 +70,7 @@ docker-compose --profile proxymanager up -d
 docker-compose --profile duckdns up -d
 ```
 
-## Extra Tips
+## 🔆 Extra Tips
 
 > For enhanced high availability and automatic failover between Pi-hole instances, consider using [keepalived](https://www.keepalived.org/) to manage a virtual IP address shared by your hosts. This helps ensure uninterrupted DNS service if one node goes down.
 
