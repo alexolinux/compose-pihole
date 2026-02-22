@@ -2,7 +2,7 @@
 
 ---------------------
 
-## Orchestrated Network Tool for **[Raspberry PI](https://www.raspberrypi.com/tutorials/)**
+## Orchestrated Network Tool for **[🍇 Raspberry PI](https://www.raspberrypi.com/tutorials/)**
 
 This project provides docker-compose files to deploy a network-wide ad blocker (Pi-hole) and a recursive DNS resolver (Unbound) on your system. It is designed to run on a Raspberry Pi or any other system capable of running Docker. In addition, it also includes a reverse proxy (nginx-proxy-manager) and a dynamic DNS client (duckdns).
 
@@ -58,7 +58,16 @@ Check/Use the template file `env_template` and creating your own `.env` file.
 
 1. Copy the `env_template` file to `.env`
 2. Edit the `.env` file with your desired values
-3. Run `docker-compose up -d` to start the services
+3. Run `docker-compose up -d` to start the main services
+
+## How to use the optional services
+
+If you want to use the additional services (`proxymanager`, `duckDNS`), you must run them from their isolated profiles:
+
+```shell
+docker-compose --profile proxymanager up -d
+docker-compose --profile duckdns up -d
+```
 
 ## Author
 
